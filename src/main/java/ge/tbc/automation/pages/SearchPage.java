@@ -10,7 +10,7 @@ public class SearchPage {
     }
 
     public Locator searchBox(){
-        return page.locator("//input[@class='input ng-pristine ng-valid ng-touched']");
+        return page.locator("//input[contains(@class, 'input') and @type='text']");
     }
 
     public Locator nothingFound(){

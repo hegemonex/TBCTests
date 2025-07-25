@@ -25,7 +25,14 @@ public class MainSteps {
     }
 
     public MainSteps clickSearch() {
-        mainPage.searchBtn().click();
+        mainPage.searchBtn().first().click();
+        return this;
+    }
+
+    public MainSteps goToLoans(){
+        mainPage.forYou().click();
+        mainPage.loanBtn().click();
+
         return this;
     }
 }

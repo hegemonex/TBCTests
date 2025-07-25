@@ -23,6 +23,10 @@ public class MainPage {
     }
 
     public Locator searchBtn(){
-        return page.locator("//button[@class='tbcx-pw-search__button ng-tns-c4211022679-2 icon-flat size-s ng-star-inserted state-initial']");
+        return page.locator("//tbcx-icon[@style=\"--icon-mask-image-property: url('/assets/tbcx/icons/search-outlined.svg?');\"]");
+    }
+
+    public Locator loanBtn(){
+        return page.locator("//span[@class='tbcx-pw-mega-menu-sub-item__title' and text() = 'სამომხმარებლო']");
     }
 }
