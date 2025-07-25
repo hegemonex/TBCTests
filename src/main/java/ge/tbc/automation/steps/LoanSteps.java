@@ -3,6 +3,7 @@ package ge.tbc.automation.steps;
 import com.github.javafaker.Faker;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.TimeoutError;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import ge.tbc.automation.pages.LoanPage;
 import org.testng.Assert;
@@ -20,14 +21,19 @@ public class LoanSteps {
         this.loanPage = new LoanPage(page);
     }
 
-    public LoanSteps getTheLoan(){
+    public LoanSteps getTheLoan() {
         int randomNum = rand.nextInt(200, 80000);
         int randomNum2 = rand.nextInt(3, 48);
         String personalId = String.valueOf(rand.nextLong(10000000000L, 99999999999L));
 
         String ranNum = String.valueOf(randomNum);
         String ranNum2 = String.valueOf(randomNum2);
+
+
+        waitShortAndClosePopup();
         loanPage.loanBtn().click();
+
+        waitShortAndClosePopup();
 
         loanPage.moneyAndTime().first().click();
         loanPage.moneyAndTime().first().fill(ranNum);
@@ -35,20 +41,24 @@ public class LoanSteps {
         loanPage.moneyAndTime().nth(0).click();
         loanPage.moneyAndTime().nth(0).fill(ranNum2);
 
+        waitShortAndClosePopup();
+
         loanPage.confirmBtn().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
         loanPage.confirmBtn().click();
 
-        if(loanPage.popUp().isVisible()){
-            loanPage.closePopUp().click();
-        }
+        waitShortAndClosePopup();
 
         loanPage.timeCalc().click();
-        loanPage.timeCalc().fill((ranNum2));
+        loanPage.timeCalc().fill(ranNum2);
 
         loanPage.amountCalc().click();
         loanPage.amountCalc().fill(ranNum);
 
+        waitShortAndClosePopup();
+
         loanPage.employmentBtn().click();
+
+        waitShortAndClosePopup();
 
         loanPage.amount().nth(0).click();
         loanPage.amount().nth(0).fill(ranNum);
@@ -56,8 +66,15 @@ public class LoanSteps {
         loanPage.amount().nth(1).click();
         loanPage.amount().nth(1).fill(ranNum2);
 
+        waitShortAndClosePopup();
+
         loanPage.acceptLoansBtn().click();
+
+        waitShortAndClosePopup();
+
         loanPage.okayBtn().click();
+
+        waitShortAndClosePopup();
 
         loanPage.personalId().click();
         loanPage.personalId().fill(personalId);
@@ -74,5 +91,21 @@ public class LoanSteps {
         loanPage.closeBtn().click();
 
         return this;
+    }
+
+    private void waitShortAndClosePopup() {
+        for (int i = 0; i < 6; i++) {
+            if (loanPage.popUp().isVisible()) {
+                loanPage.closePopUp().click();
+                page.waitForSelector("div.popup-back.active", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.HIDDEN));
+
+                break;
+            }
+            if (page.locator("div.popup-back.active").isVisible()) {
+                page.waitForSelector("div.popup-back.active", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.HIDDEN));
+                break;
+            }
+            page.waitForTimeout(500);
+        }
     }
 }

@@ -19,7 +19,7 @@ public class BaseTest {
         playwright = Playwright.create();
 
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
-                .setHeadless(true)
+                .setHeadless(false)
                 .setArgs(Arrays.asList("--disable-gpu", "--disable-extensions"));
 
         browser = playwright.chromium().launch(launchOptions);
