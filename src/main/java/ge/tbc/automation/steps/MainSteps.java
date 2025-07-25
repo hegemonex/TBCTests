@@ -10,20 +10,6 @@ public class MainSteps {
         this.mainPage = new MainPage(page);
     }
 
-    public MainSteps goToCurrencyPage() {
-        mainPage.forYou().click();
-        mainPage.currencyBtn().click();
-
-        return this;
-    }
-
-    public MainSteps goToTBCCardPage() {
-        mainPage.forYou().click();
-        mainPage.TBCCard().click();
-
-        return this;
-    }
-
     public MainSteps clickSearch() {
         mainPage.searchBtn().first().click();
         return this;

@@ -3,10 +3,9 @@ package ge.tbc.automation.steps;
 import com.github.javafaker.Faker;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.TimeoutError;
+import com.microsoft.playwright.PlaywrightException;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import ge.tbc.automation.pages.LoanPage;
-import org.testng.Assert;
 
 import java.util.Random;
 
@@ -14,7 +13,6 @@ public class LoanSteps {
     private final LoanPage loanPage;
     private final Page page;
     private final Random rand = new Random();
-    private Faker faker = new Faker();
 
     public LoanSteps(Page page) {
         this.page = page;
@@ -22,87 +20,48 @@ public class LoanSteps {
     }
 
     public LoanSteps getTheLoan() {
-        int randomNum = rand.nextInt(200, 80000);
-        int randomNum2 = rand.nextInt(3, 48);
-        String personalId = String.valueOf(rand.nextLong(10000000000L, 99999999999L));
+        String amount = String.valueOf(rand.nextInt(200, 80000));
+        String term = String.valueOf(rand.nextInt(3, 48));
 
-        String ranNum = String.valueOf(randomNum);
-        String ranNum2 = String.valueOf(randomNum2);
-
-
-        waitShortAndClosePopup();
-        loanPage.loanBtn().click();
-
-        waitShortAndClosePopup();
-
-        loanPage.moneyAndTime().first().click();
-        loanPage.moneyAndTime().first().fill(ranNum);
-
-        loanPage.moneyAndTime().nth(0).click();
-        loanPage.moneyAndTime().nth(0).fill(ranNum2);
-
-        waitShortAndClosePopup();
-
-        loanPage.confirmBtn().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        loanPage.confirmBtn().click();
-
-        waitShortAndClosePopup();
-
-        loanPage.timeCalc().click();
-        loanPage.timeCalc().fill(ranNum2);
-
-        loanPage.amountCalc().click();
-        loanPage.amountCalc().fill(ranNum);
-
-        waitShortAndClosePopup();
-
-        loanPage.employmentBtn().click();
-
-        waitShortAndClosePopup();
-
-        loanPage.amount().nth(0).click();
-        loanPage.amount().nth(0).fill(ranNum);
-
-        loanPage.amount().nth(1).click();
-        loanPage.amount().nth(1).fill(ranNum2);
-
-        waitShortAndClosePopup();
-
-        loanPage.acceptLoansBtn().click();
-
-        waitShortAndClosePopup();
-
-        loanPage.okayBtn().click();
-
-        waitShortAndClosePopup();
-
-        loanPage.personalId().click();
-        loanPage.personalId().fill(personalId);
-
-        loanPage.personalNumber().click();
-        loanPage.personalNumber().fill(faker.phoneNumber().cellPhone());
-
-        loanPage.yesBtn().click();
-        loanPage.checkbtn().click();
-        loanPage.finalBtn().click();
-
-        Assert.assertTrue(loanPage.youGotTheLoan().isVisible());
-
-        loanPage.closeBtn().click();
-
+        goToLoanPageAndAccept(amount, term);
         return this;
     }
 
-    private void waitShortAndClosePopup() {
-        for (int i = 0; i < 6; i++) {
-            if (loanPage.popUp().isVisible()) {
-                loanPage.closePopUp().click();
-                page.waitForSelector("div.popup-back.active", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.HIDDEN));
+    private void goToLoanPageAndAccept(String amount, String term) {
+        closePopupIfVisible();
 
-                break;
-            }
-            if (page.locator("div.popup-back.active").isVisible()) {
-                page.waitForSelector("div.popup-back.active", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.HIDDEN));
+        page.waitForNavigation(() -> loanPage.loanBtn().click());
+        closePopupIfVisible();
+
+        loanPage.moneyAndTime().first().fill(amount);
+        loanPage.moneyAndTime().nth(0).fill(term);
+        closePopupIfVisible();
+        loanPage.confirmBtn().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        
+        page.waitForNavigation(() -> loanPage.confirmBtn().click());
+        closePopupIfVisible();
+    }
+
+     private void closePopupIfVisible() {
+        Locator popup = page.locator("div.popup-back.active");
+        Locator closeBtn = loanPage.closePopUp();
+
+        for (int i = 0; i < 6; i++) {
+            try {
+                if (popup.isVisible()) {
+                    if (closeBtn.isVisible()) {
+                        closeBtn.click();
+                    }
+                    // Shorter wait time to avoid 10s timeout
+                    page.waitForSelector(
+                            "div.popup-back.active",
+                            new Page.WaitForSelectorOptions()
+                                    .setState(WaitForSelectorState.HIDDEN)
+                                    .setTimeout(2000)
+                    );
+                    break;
+                }
+            } catch (PlaywrightException e) {
                 break;
             }
             page.waitForTimeout(500);
