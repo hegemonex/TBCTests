@@ -2,10 +2,13 @@ package ge.tbc.automation.steps;
 
 import ge.tbc.automation.pages.MoneyTransferPage;
 
+import java.util.Random;
+
 import static org.testng.Assert.assertTrue;
 
 public class MoneyTransferSteps {
     private final MoneyTransferPage moneyTransferPage;
+    private Random rand = new Random();
 
     public MoneyTransferSteps(MoneyTransferPage moneyTransferPage) {
         this.moneyTransferPage = moneyTransferPage;
@@ -16,7 +19,7 @@ public class MoneyTransferSteps {
         moneyTransferPage.dropDownBtn().first().click();
         moneyTransferPage.chooseCurrency().click();
         moneyTransferPage.inputField().click();
-        moneyTransferPage.inputField().fill("233");
+        moneyTransferPage.inputField().fill(String.valueOf(rand.nextInt(1000)));
 
         moneyTransferPage.dropDownBtn().nth(0).click();
         moneyTransferPage.selectQountry().click();

@@ -12,7 +12,7 @@ public class SearchSteps {
         searchPage = new SearchPage(page);
     }
 
-    @Step("Search with a valid query 'სესხი' and verify results are visible")
+    @Step("Search with 'გზავნილი'")
     public SearchSteps searchMoneyTransfer() {
         searchPage.searchBox().click();
         searchPage.searchBox().clear();
