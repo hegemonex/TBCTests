@@ -5,6 +5,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.PlaywrightException;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import ge.tbc.automation.pages.LoanPage;
+import io.qameta.allure.Step;
 
 import java.util.Random;
 
@@ -18,14 +19,15 @@ public class LoanSteps {
         this.loanPage = new LoanPage(page);
     }
 
+    @Step("Apply for a loan with random amount and term")
     public LoanSteps getTheLoan() {
         String amount = String.valueOf(rand.nextInt(200, 80000));
         String term = String.valueOf(rand.nextInt(3, 48));
-
         goToLoanPageAndAccept(amount, term);
         return this;
     }
 
+    @Step("Fill loan form with amount: {amount} and term: {term}, then submit")
     private void goToLoanPageAndAccept(String amount, String term) {
         closePopupIfVisible();
 
@@ -36,12 +38,13 @@ public class LoanSteps {
         loanPage.moneyAndTime().nth(0).fill(term);
         closePopupIfVisible();
         loanPage.confirmBtn().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        
+
         page.waitForNavigation(() -> loanPage.confirmBtn().click());
         closePopupIfVisible();
     }
 
-     private void closePopupIfVisible() {
+    @Step("Close popup if visible")
+    private void closePopupIfVisible() {
         Locator popup = page.locator("div.popup-back.active");
         Locator closeBtn = loanPage.closePopUp();
 
@@ -51,7 +54,6 @@ public class LoanSteps {
                     if (closeBtn.isVisible()) {
                         closeBtn.click();
                     }
-                    // Shorter wait time to avoid 10s timeout
                     page.waitForSelector(
                             "div.popup-back.active",
                             new Page.WaitForSelectorOptions()

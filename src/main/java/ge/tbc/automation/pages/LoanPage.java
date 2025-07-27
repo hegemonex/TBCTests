@@ -2,7 +2,6 @@ package ge.tbc.automation.pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import ge.tbc.automation.steps.LoanSteps;
 
 public class LoanPage {
     private final Page page;

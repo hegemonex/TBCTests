@@ -13,12 +13,8 @@ public class SearchPage {
         return page.locator("//input[contains(@class, 'input') and @type='text']");
     }
 
-    public Locator nothingFound(){
-        return page.locator("//p[@class='global-search__bottom-content__container__not-fount-result__title tbcx-pw-title']");
-    }
-
     public Locator searchResult(){
-        return page.locator("//app-search-result-item[@class='ng-star-inserted']");
+        return page.locator("//a[@href='/ka/other-products/money-transfers']");
     }
 }
 

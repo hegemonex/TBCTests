@@ -4,9 +4,12 @@ import ge.tbc.automation.setUp.BaseTest;
 import ge.tbc.automation.steps.LoanSteps;
 import ge.tbc.automation.steps.MainSteps;
 import ge.tbc.automation.steps.SearchSteps;
+import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Epic("TBC Bank UI Tests")
+@Feature("Search and Loan Features")
 public class TbcUiTests extends BaseTest {
     MainSteps steps;
     SearchSteps searchSteps;
@@ -19,18 +22,22 @@ public class TbcUiTests extends BaseTest {
         loanSteps = new LoanSteps(page);
     }
 
-    @Test
-    public void searchTest() {
+    @Test(description = "Count the amount of banks open to money transfers")
+    @Story("Search, Money Transfer")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Get to the page via search and fill in the field")
+    public void moneyTransferSearchTest() {
         steps.clickSearch();
         searchSteps
-                .searchInvalid()
-                .searchValid();
+                .searchMoneyTransfer();
     }
 
-    @Test
+    @Test(description = "Validate loan flow")
+    @Story("Loan")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Test the loan application process with random amount and term")
     public void loanTest() {
         steps.goToLoans();
         loanSteps.getTheLoan();
     }
-
 }

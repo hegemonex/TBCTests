@@ -2,7 +2,7 @@ package ge.tbc.automation.setUp;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.LoadState;
-import org.testng.annotations.AfterMethod;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeMethod;
 
 import java.util.Arrays;
@@ -15,6 +15,7 @@ public class BaseTest {
     static public Page page;
 
     @BeforeMethod
+    @Step("Set up browser and navigate to main URL")
     public void setUp() {
         playwright = Playwright.create();
 
