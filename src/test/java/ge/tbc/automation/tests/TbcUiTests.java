@@ -7,8 +7,10 @@ import ge.tbc.automation.steps.MoneyTransferSteps;
 import ge.tbc.automation.steps.SearchSteps;
 import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners({io.qameta.allure.testng.AllureTestNg.class})
 @Epic("TBC Bank UI Tests")
 @Feature("Search and Loan Features")
 public class TbcUiTests extends BaseTest {

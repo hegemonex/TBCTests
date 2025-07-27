@@ -19,11 +19,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.javafaker</groupId>
-                <artifactId>javafaker</artifactId>
-                <version>1.0.2</version>
-            </dependency>
-            <dependency>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-bom</artifactId>
                 <version>${allure.version}</version>
@@ -71,16 +66,13 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.11.2</version>
             </plugin>
         </plugins>
-
     </build>
-
 </project>
