@@ -1,6 +1,5 @@
 package ge.tbc.automation.steps;
 
-import com.github.javafaker.Faker;
 import com.microsoft.playwright.Page;
 import ge.tbc.automation.pages.SearchPage;
 import io.qameta.allure.Step;

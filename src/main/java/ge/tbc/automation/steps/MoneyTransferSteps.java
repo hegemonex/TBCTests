@@ -1,5 +1,6 @@
 package ge.tbc.automation.steps;
 
+import com.microsoft.playwright.Page;
 import ge.tbc.automation.pages.MoneyTransferPage;
 
 import java.util.Random;
@@ -10,8 +11,8 @@ public class MoneyTransferSteps {
     private final MoneyTransferPage moneyTransferPage;
     private Random rand = new Random();
 
-    public MoneyTransferSteps(MoneyTransferPage moneyTransferPage) {
-        this.moneyTransferPage = moneyTransferPage;
+    public MoneyTransferSteps(Page page) {
+        this.moneyTransferPage = new MoneyTransferPage(page);
     }
 
     public MoneyTransferSteps checkTheAmountOfAvailableBanks() {

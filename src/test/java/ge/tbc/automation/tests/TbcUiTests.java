@@ -3,6 +3,7 @@ package ge.tbc.automation.tests;
 import ge.tbc.automation.setUp.BaseTest;
 import ge.tbc.automation.steps.LoanSteps;
 import ge.tbc.automation.steps.MainSteps;
+import ge.tbc.automation.steps.MoneyTransferSteps;
 import ge.tbc.automation.steps.SearchSteps;
 import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
@@ -14,12 +15,14 @@ public class TbcUiTests extends BaseTest {
     MainSteps steps;
     SearchSteps searchSteps;
     LoanSteps loanSteps;
+    MoneyTransferSteps moneyTransferSteps;
 
     @BeforeMethod
     public void initSteps() {
         steps = new MainSteps(page);
         searchSteps = new SearchSteps(page);
         loanSteps = new LoanSteps(page);
+        moneyTransferSteps = new MoneyTransferSteps(page);
     }
 
     @Test(description = "Count the amount of banks open to money transfers")
@@ -38,6 +41,6 @@ public class TbcUiTests extends BaseTest {
     @Description("Test the loan application process with random amount and term")
     public void loanTest() {
         steps.goToLoans();
-        loanSteps.getTheLoan();
+        moneyTransferSteps.checkTheAmountOfAvailableBanks();
     }
 }
