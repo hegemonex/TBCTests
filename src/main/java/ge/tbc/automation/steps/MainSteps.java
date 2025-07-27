@@ -1,5 +1,6 @@
 package ge.tbc.automation.steps;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import ge.tbc.automation.pages.MainPage;
 import io.qameta.allure.Step;
@@ -21,6 +22,13 @@ public class MainSteps {
     public MainSteps goToLoans() {
         mainPage.forYou().click();
         mainPage.loanBtn().click();
+        return this;
+    }
+
+    @Step("Navigate to Money Transfer page")
+    public MainSteps goToMoneyTransfer() {
+        mainPage.forYou().click();
+        mainPage.moneyTransferBtn().click();
         return this;
     }
 }

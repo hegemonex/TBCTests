@@ -21,4 +21,8 @@ public class MainPage {
     public Locator loanBtn(){
         return page.locator("//span[@class='tbcx-pw-mega-menu-sub-item__title' and text() = 'სამომხმარებლო']");
     }
+
+    public Locator moneyTransferBtn(){
+        return page.locator("a[href='/ka/other-products/money-transfers']");
+    }
 }
