@@ -14,10 +14,6 @@ public class MainPage {
         return page.locator("//div[@class= 'tbcx-pw-navigation-item__link ng-star-inserted' and text() = ' ჩემთვის ']");
     }
 
-    public Locator searchBtn(){
-        return page.locator("//tbcx-icon[@style=\"--icon-mask-image-property: url('/assets/tbcx/icons/search-outlined.svg?');\"]");
-    }
-
     public Locator loanBtn(){
         return page.locator("//span[@class='tbcx-pw-mega-menu-sub-item__title' and text() = 'სამომხმარებლო']");
     }
