@@ -12,12 +12,6 @@ public class MainSteps {
         this.mainPage = new MainPage(page);
     }
 
-    @Step("Click search button on the main page")
-    public MainSteps clickSearch() {
-        mainPage.searchBtn().first().click();
-        return this;
-    }
-
     @Step("Navigate to Loans page")
     public MainSteps goToLoans() {
         mainPage.forYou().click();
@@ -29,6 +23,13 @@ public class MainSteps {
     public MainSteps goToMoneyTransfer() {
         mainPage.forYou().click();
         mainPage.moneyTransferBtn().click();
+        return this;
+    }
+
+    @Step("Navigate to Deposit page")
+    public MainSteps goDeposit() {
+        mainPage.forYou().click();
+        mainPage.depositBtn().click();
         return this;
     }
 }

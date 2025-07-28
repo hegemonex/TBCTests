@@ -4,10 +4,9 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import ge.tbc.automation.pages.MoneyTransferPage;
+import io.qameta.allure.Step;
 
 import java.util.Random;
-
-import static java.lang.Thread.sleep;
 import static org.testng.Assert.assertTrue;
 
 public class MoneyTransferSteps {
@@ -18,6 +17,7 @@ public class MoneyTransferSteps {
         this.moneyTransferPage = new MoneyTransferPage(page);
     }
 
+    @Step("Fill in the Currency field, choose a country and see the available banks")
     public MoneyTransferSteps checkTheAmountOfAvailableBanks() throws InterruptedException {
         moneyTransferPage.moneyTransferBtn().click();
 

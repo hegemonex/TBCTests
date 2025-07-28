@@ -4,9 +4,19 @@
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
-    <test name="ge.tbc.automation.tests.TbcUiTests">
+    <test name="ge.tbc.automation.tests.LoanTest">
         <classes>
-            <class name="ge.tbc.automation.tests.TbcUiTests"/>
+            <class name="ge.tbc.automation.tests.LoanTest"/>
+        </classes>
+    </test>
+    <test name="ge.tbc.automation.tests.MoneyExchangeTest">
+        <classes>
+            <class name="ge.tbc.automation.tests.MoneyExchangeTest"/>
+        </classes>
+    </test>
+    <test name="ge.tbc.automation.tests.DepositTest">
+        <classes>
+            <class name="ge.tbc.automation.tests.DepositTest"/>
         </classes>
     </test>
 </suite>

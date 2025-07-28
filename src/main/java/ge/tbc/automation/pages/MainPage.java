@@ -22,6 +22,10 @@ public class MainPage {
         return page.locator("//span[@class='tbcx-pw-mega-menu-sub-item__title' and text() = 'სამომხმარებლო']");
     }
 
+    public Locator depositBtn(){
+        return page.locator("//span[@class='tbcx-pw-mega-menu-sub-item__title' and text() = 'ანაბრები']");
+    }
+
     public Locator moneyTransferBtn(){
         return page.locator("a[href='/ka/other-products/money-transfers']");
     }
